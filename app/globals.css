@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  background-color: #E1F8FF;
+  margin: 2.75rem 0.5rem 0;
+}

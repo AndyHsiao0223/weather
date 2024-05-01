@@ -1,6 +1,6 @@
 const options = {
   enableHighAccuracy: false,
-  timeout: 500,
+  timeout: 5000,
 };
 
 export const getPosition = (): Promise<any> => {

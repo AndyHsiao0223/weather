@@ -53,7 +53,7 @@ const WeekPage = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [location]);
 
   return (
     <div className="flex h-[43.75rem] flex-col items-center justify-evenly">

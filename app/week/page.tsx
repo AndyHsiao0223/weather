@@ -13,7 +13,7 @@ const WeekPage = () => {
     loop.push(i);
   }
 
-  const [url, setUrl] = useState<string>("");
+  const [time, setTime] = useState<string>("");
 
   const [date, setDate] = useState<string[]>(["", "", "", "", "", "", "", ""]);
   const [desc, setDesc] = useState<string[]>(["", "", "", "", "", "", "", ""]);
@@ -22,8 +22,6 @@ const WeekPage = () => {
   const [rain, setRain] = useState<number[]>([0, 0, 0, 0, 0, 0, 0, 0]);
 
   useEffect(() => {
-    setUrl(window.location.href);
-
     getPosition()
       .then((position) => {
         fetchApi(position.coords.latitude, position.coords.longitude, "metric")
@@ -33,6 +31,8 @@ const WeekPage = () => {
             const rainData: number[] = [];
             const eveFeelData: number[] = [];
             const dayFeelData: number[] = [];
+
+            setTime(unixToTime(data.current.dt));
 
             for (let i = 0; i < 8; i++) {
               dateData.push(unixToDate(data.daily[i].dt));
@@ -58,7 +58,7 @@ const WeekPage = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [url]);
+  }, [time]);
 
   return (
     <div className="flex h-[43.75rem] flex-col items-center justify-evenly">

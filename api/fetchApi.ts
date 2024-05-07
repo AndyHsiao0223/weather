@@ -6,7 +6,7 @@ export const fetchApi = async (lat: string, lon: string, units: string) => {
 
   try {
     const response = await fetch(
-      `${url}?lat=${lat}&lon=${lon}&exclude=minutely,alerts&appid=${appid}&units=${units}&lang=zh_tw`
+      `${url}?lat=${lat}&lon=${lon}&exclude=minutely,alerts&appid=${appid}&units=${units}&lang=zh_tw`,
     );
     const result = await response.json();
     return result;

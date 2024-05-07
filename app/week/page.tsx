@@ -5,12 +5,15 @@ import { getPosition } from "@/utils/getPosition";
 import { unixToDate } from "@/utils/unixToDate";
 import { useEffect, useState } from "react";
 import DaysDetails from "@/components/DaysDetails";
+import { unixToTime } from "@/utils/unixToTime";
 
 const WeekPage = () => {
   const loop = [];
   for (let i = 0; i < 8; i++) {
     loop.push(i);
   }
+
+  const [time, setTime] = useState<string>("");
 
   const [date, setDate] = useState<string[]>(["", "", "", "", "", "", "", ""]);
   const [desc, setDesc] = useState<string[]>(["", "", "", "", "", "", "", ""]);
@@ -28,6 +31,8 @@ const WeekPage = () => {
             const rainData: number[] = [];
             const eveFeelData: number[] = [];
             const dayFeelData: number[] = [];
+
+            setTime(unixToTime(data.current.dt));
 
             for (let i = 0; i < 8; i++) {
               dateData.push(unixToDate(data.daily[i].dt));
@@ -53,7 +58,7 @@ const WeekPage = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [time]);
 
   return (
     <div className="flex h-[43.75rem] flex-col items-center justify-evenly">

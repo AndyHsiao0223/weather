@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import SearchBar from "@/components/SearchBar";
-import PageSwitcher from "@/components/PageSwitcher";
+import { PageSwitcher } from "@/components/PageSwitcher";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,15 +13,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
       <body className={inter.className}>
         <SearchBar />
-        <PageSwitcher />
-        {children}
+        <PageSwitcher>{children}</PageSwitcher>
       </body>
     </html>
   );

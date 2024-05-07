@@ -2,12 +2,14 @@
 
 import { fetchApi } from "@/api/fetchApi";
 import InfoBox from "@/components/InfoBox";
+import { PageContext } from "@/components/PageSwitcher";
 import RainChart from "@/components/RainChart";
 import TempChart from "@/components/TempChart";
 import { getPosition } from "@/utils/getPosition";
 import { unixToDate } from "@/utils/unixToDate";
 import { unixToTime } from "@/utils/unixToTime";
-import { useEffect, useState } from "react";
+
+import { useContext, useEffect, useState } from "react";
 
 export default function Home() {
   const [date, setDate] = useState<string>("");
@@ -16,6 +18,8 @@ export default function Home() {
   const [feel, setFeel] = useState<number>(0);
   const [hourFeel, setHourFeel] = useState<number[]>([]);
   const [hourRain, setHourRain] = useState<number[]>([]);
+
+  const page = useContext(PageContext);
 
   useEffect(() => {
     getPosition()
@@ -26,7 +30,6 @@ export default function Home() {
             setDate(unixToDate(data.current.dt));
             setDesc(data.current.weather[0].description);
             setFeel(Math.round(data.current.feels_like));
-
             const hourFeelData: number[] = [];
             const hourRainData: number[] = [];
 
@@ -45,8 +48,7 @@ export default function Home() {
       .catch((err) => {
         console.log(err);
       });
-  }, [time]);
-
+  }, [page]);
   return (
     <main>
       <div className="mt-5 flex justify-evenly">

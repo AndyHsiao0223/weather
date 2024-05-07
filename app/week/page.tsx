@@ -3,9 +3,9 @@
 import { fetchApi } from "@/api/fetchApi";
 import { getPosition } from "@/utils/getPosition";
 import { unixToDate } from "@/utils/unixToDate";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import DaysDetails from "@/components/DaysDetails";
-import { unixToTime } from "@/utils/unixToTime";
+import { PageContext } from "@/components/PageSwitcher";
 
 const WeekPage = () => {
   const loop = [];
@@ -13,13 +13,13 @@ const WeekPage = () => {
     loop.push(i);
   }
 
-  const [time, setTime] = useState<string>("");
-
   const [date, setDate] = useState<string[]>(["", "", "", "", "", "", "", ""]);
   const [desc, setDesc] = useState<string[]>(["", "", "", "", "", "", "", ""]);
   const [dayFeel, setDayFeel] = useState<number[]>([0, 0, 0, 0, 0, 0, 0, 0]);
   const [eveFeel, setEveFeel] = useState<number[]>([0, 0, 0, 0, 0, 0, 0, 0]);
   const [rain, setRain] = useState<number[]>([0, 0, 0, 0, 0, 0, 0, 0]);
+
+  const page = useContext(PageContext);
 
   useEffect(() => {
     getPosition()
@@ -31,8 +31,6 @@ const WeekPage = () => {
             const rainData: number[] = [];
             const eveFeelData: number[] = [];
             const dayFeelData: number[] = [];
-
-            setTime(unixToTime(data.current.dt));
 
             for (let i = 0; i < 8; i++) {
               dateData.push(unixToDate(data.daily[i].dt));
@@ -58,8 +56,7 @@ const WeekPage = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [time]);
-
+  }, [page]);
   return (
     <div className="flex h-[43.75rem] flex-col items-center justify-evenly">
       {loop.map((i) => (

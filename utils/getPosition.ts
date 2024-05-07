@@ -1,5 +1,5 @@
 const options = {
-  enableHighAccuracy: true,
+  enableHighAccuracy: false,
   timeout: 5000,
 };
 

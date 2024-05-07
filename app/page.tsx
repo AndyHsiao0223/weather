@@ -10,6 +10,8 @@ import { unixToTime } from "@/utils/unixToTime";
 import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [url, setUrl] = useState<string>("");
+
   const [date, setDate] = useState<string>("");
   const [time, setTime] = useState<string>("");
   const [desc, setDesc] = useState<string>("");
@@ -18,6 +20,8 @@ export default function Home() {
   const [hourRain, setHourRain] = useState<number[]>([]);
 
   useEffect(() => {
+    setUrl(window.location.href);
+
     getPosition()
       .then((position) => {
         fetchApi(position.coords.latitude, position.coords.longitude, "metric")
@@ -45,7 +49,7 @@ export default function Home() {
       .catch((err) => {
         console.log(err);
       });
-  }, [time]);
+  }, [url]);
 
   return (
     <main>
